@@ -3,8 +3,9 @@
 let container = document.querySelector(".todo-container");
 let input = document.querySelector(".add-task input");
 let addButton = document.querySelector(".add-task span");
-// let noTaskMessage = document.querySelector(".tasks-content span");
-let taskContainer = document.querySelector(".tasks-content")
+let taskContainer = document.querySelector(".tasks-content");
+let tasksCount = document.querySelector(".tasks-count span");
+let tasksCompleted = document.querySelector(".tasks-completed span");
 
 // Make the focus on input
 window.onload = function () {
@@ -50,6 +51,8 @@ addButton.onclick = function () {
         input.value = '';
         // Add focus again on input
         input.focus();
+        // Trigger calculate function
+        calculate();
     }
 };
 
@@ -72,6 +75,8 @@ document.addEventListener("click",(e)=>{
         // Finish the task when clicked
         e.target.classList.toggle("finished");
     };
+    // Trigger calculate function
+    calculate();
 });
 
 // Create function to add "NO task message"
@@ -86,6 +91,13 @@ function createMsg() {
      spanMsg.className = "no-tasks-message";
      // Add the message to task container
      taskContainer.appendChild(spanMsg);
+};
+
+function calculate() {
+    // Add count of tasks 
+     tasksCount.innerHTML = document.querySelectorAll(".tasks-content .task-box").length;
+     // Add count of finished tasks
+     tasksCompleted.innerHTML = document.querySelectorAll(".tasks-content .finished").length;
 }
 
 
