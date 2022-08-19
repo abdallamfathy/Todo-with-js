@@ -3,7 +3,7 @@
 let container = document.querySelector(".todo-container");
 let input = document.querySelector(".add-task input");
 let addButton = document.querySelector(".add-task span");
-let noTaskMessage = document.querySelector(".tasks-content span");
+// let noTaskMessage = document.querySelector(".tasks-content span");
 let taskContainer = document.querySelector(".tasks-content")
 
 // Make the focus on input
@@ -18,8 +18,14 @@ addButton.onclick = function () {
         // Alert for empty input
         swal("please enter task!");
     } else {
-        // Remove No task message after task is added
-        noTaskMessage.remove();
+        // Get task massage span
+        let noTaskMessage = document.querySelector(".no-tasks-message");
+        // Check if Message exists before remove
+        if (document.body.contains(document.querySelector(".no-tasks-message"))) {
+            // Remove No task message after task is added
+            noTaskMessage.remove();
+        }
+
         // Create Task Element
         let taskElement = document.createElement("span");
         // Create text node for task
@@ -54,12 +60,33 @@ document.addEventListener("click",(e)=>{
         // Remove the task when button clicked
         e.target.parentNode.remove();
     };
+    // Check Number Of Tasks Inside The Container
+    if (taskContainer.childElementCount == 0) {
+
+        createMsg();
+  
+      }
+
     // Check if target is task 
     if (e.target.classList.contains('task-box')) {
         // Finish the task when clicked
         e.target.classList.toggle("finished");
     };
-})
+});
+
+// Create function to add "NO task message"
+function createMsg() {
+    // Create span for message
+     let spanMsg = document.createElement('span');
+     // Create text for the spanMsg
+     let spanMsgText = document.createTextNode("There is no tasks to show");
+     // Add the text to spanMsg
+     spanMsg.appendChild(spanMsgText);
+     // Add className for the spanMsg
+     spanMsg.className = "no-tasks-message";
+     // Add the message to task container
+     taskContainer.appendChild(spanMsg);
+}
 
 
 
