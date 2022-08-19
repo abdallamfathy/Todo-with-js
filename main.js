@@ -39,15 +39,27 @@ addButton.onclick = function () {
         // Add the button to Task Element
         taskElement.appendChild(deleteButton);
         // Add the Task Element to Task Container
-        taskContainer.appendChild(task);
-
+        taskContainer.appendChild(taskElement);
+        // Empty the input
+        input.value = '';
+        // Add focus again on input
+        input.focus();
     }
- 
-    
+};
 
-
-
-}
+// Add Event Listener for delete tasks
+document.addEventListener("click",(e)=>{
+    // Check if user clicked on delete button
+    if (e.target.className === "delete") {
+        // Remove the task when button clicked
+        e.target.parentNode.remove();
+    };
+    // Check if target is task 
+    if (e.target.classList.contains('task-box')) {
+        // Finish the task when clicked
+        e.target.classList.toggle("finished");
+    };
+})
 
 
 
